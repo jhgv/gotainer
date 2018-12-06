@@ -2,6 +2,8 @@ version: '2'
 
 services:
   server:
+    depends_on: 
+      - db
     container_name: server-gotainer
     build: ./server
     command: go run server.go
@@ -24,3 +26,16 @@ services:
     working_dir: /go/src/app
     ports:
       - 3031:3031
+  
+  db:
+    image: mysql
+    command: mysqld
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: mysql
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
