@@ -1,0 +1,26 @@
+version: '2'
+
+services:
+  server:
+    container_name: server-gotainer
+    build: ./server
+    command: go run server.go
+    volumes:
+      - ./server/src:/go/src/app
+    working_dir: /go/src/app
+    ports:
+      - "3030:3001"
+    environment:
+      PORT: 3001
+  
+  client:
+    depends_on: 
+      - server
+    container_name: client-gotainer
+    build: ./client
+    command: go run client.go
+    volumes:
+      - ./client/src:/go/src/app
+    working_dir: /go/src/app
+    ports:
+      - 3031:3031
