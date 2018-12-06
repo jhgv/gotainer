@@ -29,6 +29,7 @@ services:
   
   db:
     image: mysql
+    build: ./database
     command: mysqld
     restart: always
     environment:
